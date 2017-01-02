@@ -1,6 +1,6 @@
 # TinyHSP
 
-TinyHSPは**クリーンなHSPを作成する**ことを目標にしたプロジェクトです。
+TinyHSPは**最軽量のHSPを作成する**ことを目標にしたプロジェクトです。
 
 ## TinyHSPで作るもの
 
@@ -8,7 +8,31 @@ TinyHSPは**クリーンなHSPを作成する**ことを目標にしたプロジ
 
 ## TinyHSPの仕様
 
-本家HSPの仕様をコンパクトにしたものになっています。対応する命令については[TinyHSPの命令・関数の仕様](https://github.com/dolphilia/tinyhsp/wiki/TinyHSPの命令・関数の仕様)を参照してください。
+Palo Alto Tiny BASICを参考にした仕様になっています。以下は暫定案です。
+
+- プリプロセッサ
+    - なし
+- 命令
+    - pset
+    - color
+    - redraw（引数はなし。redraw 1に相当）
+    - title
+- 関数
+    - rnd（randomize使用時に相当）
+- 構文
+    - 繰り返し: repeat...loop（カウンタ変数cntはなし）
+    - ジャンプ: \*ラベル・goto・gosub・return
+    - 条件分岐: if 比較式 : 処理（else文はなし）
+- 変数
+    - 変数はa-zの26個のみ
+    - 配列は@のみ（一次元配列）
+- コメント
+    - ;（行頭のみ）
+- システム変数
+    - システム変数key（stick key,1+2+4+8...相当のキー情報が代入される）
+- 演算子
+    - 比較演算子: ==, !=, >, >=, <, <=
+    - 算術演算子: +, -, *, /
 
 ## TinyHSPの始まり
 
