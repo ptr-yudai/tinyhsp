@@ -79,29 +79,3 @@ void set_line(char* line) {
     st_line = line;
     st_line_pos = 0;
 }
-
-// TEST
-void parse_line(char* buf) {
-    Token token;
-    
-    set_line(buf);
-    
-    for (;;) {
-        get_token(&token);
-        if (token.group == EOF_TOKEN) {
-            break;
-        } else {
-            printf("トークン:%d, 文字列:%s\n", token.group, token.string);
-        }
-    }
-}
-
-int main() {
-    char buf[1024];
-    
-    while (fgets(buf, 1024, stdin) != NULL) {
-        parse_line(buf);
-    }
-    
-    return 0;
-}
