@@ -1,6 +1,6 @@
 # Makefile
 
-main: tinyhsp.o utility.o lexer.o
+tinyhsp: tinyhsp.o utility.o lexer.o
 	clang -Wall -O2 -o tinyhsp tinyhsp.o utility.o lexer.o -framework OpenGL -lglfw
 
 tinyhsp.o: tinyhsp.c
@@ -13,4 +13,4 @@ lexer.o: lexer.c
 	clang -c lexer.c
 
 clean:
-	rm -f tinyhsp tinyhsp.o utility.o lexer.o
+ 	rm -f tinyhsp tinyhsp.o utility.o lexer.o
