@@ -1,13 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <stdint.h>
 #include <GLFW/glfw3.h>
 #include <OpenGL/gl.h>
-#include <stdint.h>
+#include "token.h"
+#include "lexer.h"
 
 int32_t width = 640;
 int32_t height = 480;
 uint8_t pixel_data[640 * 480 * 3];
 
+// TEST
+void parse_line(char* buf) {
+    Token token;
+    
+    set_line(buf);
+    
+    for (;;) {
+        get_token(&token);
+        if (token.group == EOF_TOKEN) {
+            break;
+        } else {
+            printf("トークン:%d, 文字列:%s\n", token.group, token.string);
+        }
+    }
+}
+
 int main(void)
 {
+    char buf[1024];
+    
+    while (fgets(buf, 1024, stdin) != NULL) {
+        parse_line(buf);
+    }
+    
+    //
+    
     GLFWwindow* window;
 
     // GLFWライブラリを初期化する
