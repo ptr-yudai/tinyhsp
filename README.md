@@ -74,7 +74,7 @@ TinyHSPの開発に興味のある方は、以下のどの方法でも開発に�
 
 1. ツイッターでつぶやく
     1. tinyhspの文字とソースへのリンクと入れる
-    2. ハッシュタグ\#tinyhspとソースへのリンク
+    2. ハッシュタグ\#tinyhspとソースへのリンクを入れる
 2. issuesを立てる
 3. 掲示板に投稿する（[TinyHSPの提案](http://hsp.tv/play/pforum.php?mode=all&num=77515)）
 
