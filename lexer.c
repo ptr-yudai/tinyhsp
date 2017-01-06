@@ -37,7 +37,9 @@ void get_token(Token* token) {
         if (current_char == '\n') {
             token->group = EOF_TOKEN;
             return;
-        } else if (isspace(current_char)) {
+        }
+        
+        if (isspace(current_char)) {
             st_line_pos += 1;
             continue;
         }
@@ -52,7 +54,7 @@ void get_token(Token* token) {
         out_pos += 1;
         token->string[out_pos] = '\0';
         
-        if (isOperator(current_char)) {
+        if (isOperator(current_char)) { //[\+\-\*\/]
             if (current_char == '+') {
                  token->group = ADD_TOKEN;
                  return;
@@ -66,29 +68,46 @@ void get_token(Token* token) {
                 token->group = DIV_TOKEN;
                 return;
             }  
-        } else if (isdigit(current_char)) { //[0-9]
+        }
+
+        if (isdigit(current_char)) { //[0-9]
             if (lex_status == INITIAL_STATUS) {
                 lex_status = INT_STATUS;
+                continue;
             } else if (lex_status == DOT_STATUS) {
                 lex_status = FRAC_STATUS;
+                continue;
+            } else {
+                continue;
             }
-        } else if (current_char == '.') {
+        }
+        
+        if (current_char == '.') {
             if (lex_status == INT_STATUS) {
                 lex_status = DOT_STATUS;
+                continue;
             } else {
                 fprintf(stderr, "シンタックスエラー\n");
                 exit(1);
             }
-        } else if (current_char == '"') {
+        }
+        
+        if (current_char == '"') {
             if (lex_status == STRING_STATUS) {
-                lex_status = INITIAL_STATUS;
+                token->group = STRING_TOKEN;
+                return;
             } else {
                 lex_status = STRING_STATUS;
+                continue;
             }
-        } else {
-            fprintf(stderr, "不正な文字:%c\n", current_char);
-            exit(1);
         }
+        
+        if (lex_status == STRING_STATUS) {
+            continue;
+        }
+        
+        fprintf(stderr, "不正な文字です:%c\n", current_char);
+        exit(1);
     }
 }
 

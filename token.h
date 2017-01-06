@@ -7,6 +7,7 @@ typedef enum {
     SUB_TOKEN,
     MUL_TOKEN,
     DIV_TOKEN,
+    STRING_TOKEN,
     EOF_TOKEN
 } TokenGroup;
 
