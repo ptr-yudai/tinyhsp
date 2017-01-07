@@ -56,30 +56,24 @@ void get_token(Token* token) {
         
         if (isOperator(current_char)) { //[\+\-\*\/]
             if (current_char == '+') {
-                 token->group = ADD_TOKEN;
-                 return;
+                token->group = ADD_TOKEN;
             } else if (current_char == '-') {
                 token->group = SUB_TOKEN;
-                return;
             } else if (current_char == '*') {
                 token->group = MUL_TOKEN;
-                return;
             } else if (current_char == '/') {
                 token->group = DIV_TOKEN;
-                return;
-            }  
+            }
+            return;
         }
 
         if (isdigit(current_char)) { //[0-9]
             if (lex_status == INITIAL_STATUS) {
                 lex_status = INT_STATUS;
-                continue;
             } else if (lex_status == DOT_STATUS) {
                 lex_status = FRAC_STATUS;
-                continue;
-            } else {
-                continue;
             }
+            continue;
         }
         
         if (current_char == '.') {
