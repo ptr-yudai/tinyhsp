@@ -63,7 +63,7 @@ void get_token(Token* token) {
                 token->group = MUL_TOKEN;
             } else if (current_char == '/') {
                 token->group = DIV_TOKEN;
-            }
+            } else {}
             return;
         }
 
@@ -72,7 +72,7 @@ void get_token(Token* token) {
                 lex_status = INT_STATUS;
             } else if (lex_status == DOT_STATUS) {
                 lex_status = FRAC_STATUS;
-            }
+            } else {}
             continue;
         }
         
