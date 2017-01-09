@@ -6,34 +6,23 @@
 #include <OpenGL/gl.h>
 #include "token.h"
 #include "lexer.h"
+#include "parser.h"
 
 int32_t width = 640;
 int32_t height = 480;
 uint8_t pixel_data[640 * 480 * 3];
 
-// TEST
-void parse_line(char* buf) {
-    Token token;
-    
-    set_line(buf);
-    
-    for (;;) {
-        get_token(&token);
-        if (token.group == EOF_TOKEN) {
-            break;
-        } else {
-            printf("トークン:%d, 文字列:%s\n", token.group, token.string);
-        }
-    }
-}
-
 int main(void)
 {
-    char buf[1024];
-    
-    while (fgets(buf, 1024, stdin) != NULL) {
-        parse_line(buf);
-    }
+	char line[LINE_BUF_SIZE];
+	double value;
+	
+	while (fgets(line, LINE_BUF_SIZE, stdin) != NULL) {
+		set_line(line);
+		set_st_token_exists(0);
+		value = parser_expression();
+		printf(">>%f\n",value);
+	}
     
     //
     
