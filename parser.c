@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "token.h"
+#include "lexer.h"
 #include "parser.h"
-
-#define LINE_BUF_SIZE (1024)
 
 static Token st_token;
 static int st_token_exists;
@@ -77,7 +76,7 @@ parser_expression() {
 			unget_token(&token);
 			break;
 		}
-		v2 = parse_term();
+		v2 = parser_term();
 		if (token.group == ADD_TOKEN) {
 			v1 = v1 + v2;
 		} else if (token.group == SUB_TOKEN) {
@@ -90,26 +89,6 @@ parser_expression() {
 	return v1;
 }
 
-double
-parse_line(void) {
-	double value;
-	
-	st_token_exists = 0;
-	value = parse_expression();
-	
-	return value;
-}
-
-int
-main(int argc, char **argv) {
-	char line[LINE_BUF_SIZE];
-	double value;
-	
-	while (fgets(line, LINE_BUF_SIZE, stdin) != NULL) {
-		set_line(line);
-		value = parse_line();
-		printf(">>%f\n",value);
-	}
-	
-	return 0;
+void set_st_token_exists(int value) {
+	st_token_exists = value;
 }
