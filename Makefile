@@ -3,14 +3,14 @@
 #
 
 # コンパイラの設定
-#COMPILER = clang
-COMPILER = gcc
+COMPILER = clang
+#COMPILER = gcc
 # コンパイルオプション
-#CFLAGS   = -Wall -O2
-CFLAGS   = -Wall -O2 -std=c99
+CFLAGS   = -Wall -O2
+#CFLAGS   = -Wall -O2 -std=c99
 # リンク
-#LDFLAGS  = -lglfw -framework OpenGL
-LDFLAGS  = -lm -ldl -lglfw3 -lGL -lX11 -lXxf86vm -lXrandr -lXinerama -lXcursor -lpthread -lXi
+LDFLAGS  = -lglfw -framework OpenGL
+#LDFLAGS  = -lm -ldl -lglfw3 -lGL -lX11 -lXxf86vm -lXrandr -lXinerama -lXcursor -lpthread -lXi
 # ライブラリ
 LIBS     =
 # インクルード
