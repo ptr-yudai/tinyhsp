@@ -1,20 +1,48 @@
-# Makefile
+#
+# Makefile for TinyHSP
+#
 
-tinyhsp: tinyhsp.o utility.o lexer.o parser.o
-	clang -Wall -O2 -o tinyhsp tinyhsp.o utility.o lexer.o parser.o -framework OpenGL -lglfw
-	rm -f tinyhsp.o utility.o lexer.o parser.o
+# コンパイラの設定
+#COMPILER = clang
+COMPILER = gcc
+# コンパイルオプション
+#CFLAGS   = -Wall -O2
+CFLAGS   = -Wall -O2 -std=c99
+# リンク
+#LDFLAGS  = -lglfw -framework OpenGL
+LDFLAGS  = -lm -ldl -lglfw3 -lGL -lX11 -lXxf86vm -lXrandr -lXinerama -lXcursor -lpthread -lXi
+# ライブラリ
+LIBS     =
+# インクルード
+INCLUDE  =
 
-tinyhsp.o: tinyhsp.c
-	clang -c tinyhsp.c
+# ソースの拡張子
+SRC_EXT  = .c
+# オブジェクトの拡張子
+OBJ_EXT  = .o
 
-utility.o: utility.c
-	clang -c utility.c
+# 出力ファイル
+TARGET   = ./bin/tinyhsp
+# ソースのディレクトリ
+SRC_DIR  = ./src
+# オブジェクトのディレクトリ
+OBJ_DIR  = ./obj
 
-lexer.o: lexer.c
-	clang -c lexer.c
+# ソースを探索（全てコンパイル）
+SOURCES  = $(wildcard $(SRC_DIR)/*$(SRC_EXT))
+# ソースに対応するオブジェクトファイル名を設定
+OBJECTS  = $(addprefix $(OBJ_DIR)/, $(notdir $(SOURCES:%$(SRC_EXT)=%$(OBJ_EXT))))
 
-parser.o: parser.c
-	clang -c parser.c
+# ターゲットをビルド
+$(TARGET): $(OBJECTS) $(LIBS)
+	$(COMPILER) -o $@ $^ $(LDFLAGS)
+	rm -f $(OBJECTS)
+
+# 各種ソースをコンパイル
+$(OBJ_DIR)/%$(OBJ_EXT): $(SRC_DIR)/%$(SRC_EXT)
+	$(COMPILER) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+
+all: clean $(TARGET)
 
 clean:
-	rm -f tinyhsp tinyhsp.o utility.o lexer.o parser.o
+	rm -f $(OBJECTS) $(TARGET)
