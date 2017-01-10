@@ -208,6 +208,7 @@ void parse_line(char* buf) {
     }
 }
 
+/*
 int
 main(int argc, char **argv) {
    char buf[1024];
@@ -218,3 +219,4 @@ main(int argc, char **argv) {
 	
 	return 0;
 }
+*/
