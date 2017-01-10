@@ -9,6 +9,19 @@
 static char* st_line;
 static int st_line_pos;
 
+const char* keyword[] = {
+	"repeat", "loop",
+	"goto", "gosub", "return",
+	"if", ":",
+	"pset", "color", "redraw", "title", "wait",
+	"rnd",
+	"key",
+	";",
+	"==",">=", ">", "<=", "<",
+	"-", "+", "*", "/", "(", ")",
+	"@"
+};
+
 bool isOperator(char c) {
     if (c == '+' || c == '-' || c == '*' || c == '/') {
         return true;
