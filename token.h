@@ -8,6 +8,9 @@ typedef enum {
     MUL_TOKEN,
     DIV_TOKEN,
     STRING_TOKEN,
+    LP_TOKEN,
+    RP_TOKEN,
+    EQUAL_TOKEN,
     EOF_TOKEN
 } TokenGroup;
 

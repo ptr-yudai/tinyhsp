@@ -5,7 +5,10 @@ typedef enum {
     INT_STATUS,
     DOT_STATUS,
     FRAC_STATUS,
-    STRING_STATUS
+    STRING_STATUS,
+    LP_STATUS, //(
+    RP_STATUS, //)
+    EQUAL_STATUS
 } LexerStatus;
 
 void get_token(Token* token);

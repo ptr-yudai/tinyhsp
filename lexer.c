@@ -17,6 +17,15 @@ bool isOperator(char c) {
     }
 }
 
+bool isNumberStatus(LexerStatus lex_status) {
+    if ((lex_status == INT_STATUS
+        || lex_status == FRAC_STATUS)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void get_token(Token* token) {
     int out_pos = 0;
     char current_char = ' ';
@@ -26,11 +35,44 @@ void get_token(Token* token) {
     while (st_line[st_line_pos] != '\0') {
         current_char = st_line[st_line_pos];
         
-        if ((lex_status == INT_STATUS || lex_status == FRAC_STATUS)
+        if (isNumberStatus(lex_status)
             && !isdigit(current_char)
-            && current_char != '.') {
+            && current_char != '.')
+        {
             token->group = NUM_TOKEN;
             sscanf(token->string, "%lf", &token->value);
+            return;
+        }
+        
+        if (lex_status == LP_STATUS) {
+            if (!isOperator(current_char)
+                && current_char != '.'
+                && current_char != '=')
+            {
+                token->group = LP_TOKEN;
+                return;
+            }
+            else {
+                fprintf(stderr, "シンタックスエラー\n");
+                exit(1);
+            }
+        }
+        
+        if (lex_status == RP_STATUS) {
+            if (current_char != '.'
+                && current_char != '=')
+            {
+                token->group = RP_TOKEN;
+                return;
+            }
+            else {
+                fprintf(stderr, "シンタックスエラー\n");
+                exit(1);
+            }
+        }
+        
+        if (lex_status == EQUAL_STATUS) {
+            token->group = EQUAL_TOKEN;
             return;
         }
         
@@ -76,6 +118,22 @@ void get_token(Token* token) {
             continue;
         }
         
+        if (current_char == '(') {
+            lex_status = LP_STATUS;
+            continue;
+        }
+        
+        if (current_char == ')') {
+            lex_status = RP_STATUS;
+            continue;
+        }
+        
+        if (current_char == '=') {
+            lex_status = EQUAL_STATUS;
+            continue;
+        }
+        
+        
         if (current_char == '.') {
             if (lex_status == INT_STATUS) {
                 lex_status = DOT_STATUS;
@@ -109,3 +167,31 @@ void set_line(char* line) {
     st_line = line;
     st_line_pos = 0;
 }
+
+// // テストコード
+// 
+// void parse_line(char* buf) {
+//     Token token;
+//     
+//     set_line(buf);
+//     
+//     for (;;) {
+//         get_token(&token);
+//         if (token.group == EOF_TOKEN) {
+//             break;
+//         } else {
+//             printf("トークン:%d, 文字列:%s\n", token.group, token.string);
+//         }
+//     }
+// }
+// 
+// int
+// main(int argc, char **argv) {
+//    char buf[1024];
+//     
+//     while (fgets(buf, 1024, stdin) != NULL) {
+//         parse_line(buf);
+//     }
+// 	
+// 	return 0;
+// }
