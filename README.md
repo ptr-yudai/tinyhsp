@@ -13,6 +13,7 @@ Palo Alto Tiny BASICを参考にした仕様になっています。
     - color
     - redraw（引数はなし。redraw 1に相当）
     - title
+    - wait
 - 関数
     - rnd（randomize使用時に相当）
 - 構文
